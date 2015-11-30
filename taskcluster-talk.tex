@@ -37,7 +37,7 @@
   \end{center}
   \begin{itemize}
     \item \$gecko\_dir/testing/taskcluster
-    \item In tree task file are under tasks/
+    \item In tree task files are under tasks/
     \item Task categorization is just a convention.
     \item Taskcluster doesn't understand a build or test task.
     \item Taskcluster is just a task runner.
@@ -48,13 +48,18 @@
   \begin{itemize}
     \item Tasks are stored in yaml format
     \item They support an "include" directive, called \$inherits
+    \item There are some predefined variables replacement surrounded by \textbf{\{\{\}\}}
   \end{itemize}
+  \footnotesize
   \begin{lstlisting}
     $inherits:
       from: 'tasks/builds/b2g_phone_base.yml'
       variables:
         build_name: 'flame-kk'
         build_type: 'opt'
+    task:
+      created: '{{now}}'
+      deadline: '{{#from_now}}24 hours{{/from_now}}'
   \end{lstlisting}
 \end{frame}
 
@@ -138,7 +143,7 @@
 
 \begin{frame}{Branch config}
   \begin{itemize}
-    \item Which tasks run on each branch?
+    \item Which tasks run for each branch?
     \item \url{taskscluster/tasks/branches}
     \item \url{https://github.com/taskcluster/mozilla-taskcluster/blob/master/src/config/default.yml}
     \item \url{branches/<branch-name>/job_flags.yml}
